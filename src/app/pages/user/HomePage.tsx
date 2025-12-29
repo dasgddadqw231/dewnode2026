@@ -58,7 +58,7 @@ export function HomePage() {
       <section className="py-12 md:py-24 bg-brand-black flex justify-center">
         <div className="text-center w-full max-w-[1440px] px-4 md:px-8">
           {/* 1. Small Batches Only */}
-          <h2 className="text-3xl md:text-5xl font-univers-39 font-thin tracking-[0.4em] md:tracking-[0.8em] text-brand-light mb-32 md:mb-64 uppercase opacity-80 px-4">
+          <h2 className="font-['Host_Grotesk'] font-thin tracking-[0.5em] md:tracking-[1em] text-brand-light mb-32 md:mb-64 uppercase opacity-80 text-[24px]">
             SMALL BATCHES ONLY
           </h2>
           
