@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
 
 @font-face {
+<<<<<<< HEAD
   font-family: 'Univers 39';
   src: url('/fonts/Univers 39 Thin Ultra Condensed.ttf') format('truetype');
   font-weight: 100;
@@ -20,4 +21,13 @@
   src: url('/fonts/UNIVERS LIGHT.TTF') format('truetype');
   font-weight: 300;
   font-style: normal;
+=======
+    font-family: "Universe";
+    src: url("https://db.onlinewebfonts.com/t/be195eb1688071beda0c3ce013cb3687.eot");
+    src: url("https://db.onlinewebfonts.com/t/be195eb1688071beda0c3ce013cb3687.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/be195eb1688071beda0c3ce013cb3687.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/be195eb1688071beda0c3ce013cb3687.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/be195eb1688071beda0c3ce013cb3687.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/be195eb1688071beda0c3ce013cb3687.svg#Universe")format("svg");
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 }

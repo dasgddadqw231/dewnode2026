@@ -1,5 +1,9 @@
 import { Link } from "wouter";
+<<<<<<< HEAD
 import logoImg from "../../../logo.png";
+=======
+import logoImg from "figma:asset/125e01c0368c5cef3f56649d3abb745a00e9ee3d.png";
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 import { Instagram } from "lucide-react";
 
 export function Footer() {
@@ -9,8 +13,13 @@ export function Footer() {
         <Link href="/">
           <img src={logoImg} alt="DEW&ODE" className="h-7 w-auto object-contain" />
         </Link>
+<<<<<<< HEAD
 
         <a
+=======
+        
+        <a 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
           href="#"
           className="absolute right-8 md:static group flex items-center justify-center transition-all duration-500"
           aria-label="Instagram"

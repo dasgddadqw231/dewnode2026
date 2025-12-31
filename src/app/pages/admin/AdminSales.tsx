@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { dbService } from '../../../utils/supabase/service';
 import { Order, OrderItem } from '../../utils/mockDb';
+=======
+import { db, Order, OrderItem } from '../../utils/mockDb';
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface SalesData {
@@ -14,6 +18,7 @@ export function AdminSales() {
   const [salesData, setSalesData] = useState<SalesData[]>([]);
 
   useEffect(() => {
+<<<<<<< HEAD
     const fetchSalesData = async () => {
       try {
         const orders = await dbService.orders.getAll();
@@ -45,6 +50,32 @@ export function AdminSales() {
       }
     };
     fetchSalesData();
+=======
+    const orders = db.orders.getAll();
+    const productStats: Record<string, SalesData> = {};
+
+    orders.forEach(order => {
+      // Filter out cancelled orders if necessary
+      if (order.status === 'TvCancelled') return;
+
+      order.items.forEach(item => {
+        if (!productStats[item.productId]) {
+          productStats[item.productId] = {
+            productId: item.productId,
+            productName: item.productName,
+            totalRevenue: 0,
+            totalQuantity: 0
+          };
+        }
+        productStats[item.productId].totalRevenue += item.priceAtPurchase * item.quantity;
+        productStats[item.productId].totalQuantity += item.quantity;
+      });
+    });
+
+    // Convert to array and sort by revenue
+    const statsArray = Object.values(productStats).sort((a, b) => b.totalRevenue - a.totalRevenue);
+    setSalesData(statsArray);
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   }, []);
 
   return (
@@ -64,9 +95,15 @@ export function AdminSales() {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={salesData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+<<<<<<< HEAD
                 <XAxis
                   dataKey="productName"
                   tick={{ fill: '#666', fontSize: 10 }}
+=======
+                <XAxis 
+                  dataKey="productName" 
+                  tick={{ fill: '#666', fontSize: 10 }} 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                   axisLine={{ stroke: '#333' }}
                   tickLine={false}
                   interval={0}
@@ -74,17 +111,30 @@ export function AdminSales() {
                   textAnchor="middle"
                   height={40}
                 />
+<<<<<<< HEAD
                 <YAxis
                   tick={{ fill: '#666', fontSize: 10 }}
+=======
+                <YAxis 
+                  tick={{ fill: '#666', fontSize: 10 }} 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                   axisLine={{ stroke: '#333' }}
                   tickLine={false}
                   tickFormatter={(value) => `${value / 1000}k`}
                 />
+<<<<<<< HEAD
                 <Tooltip
                   contentStyle={{ backgroundColor: '#111', border: '1px solid #333' }}
                   itemStyle={{ color: '#00E2E3' }}
                   cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
                   formatter={(value: number) => [`${value.toLocaleString()} KRW`, 'Revenue']}
+=======
+                <Tooltip 
+                    contentStyle={{ backgroundColor: '#111', border: '1px solid #333' }}
+                    itemStyle={{ color: '#00E2E3' }}
+                    cursor={{fill: 'rgba(255, 255, 255, 0.05)'}}
+                    formatter={(value: number) => [`${value.toLocaleString()} KRW`, 'Revenue']}
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                 />
                 <Bar dataKey="totalRevenue" fill="#00E2E3" radius={[2, 2, 0, 0]} />
               </BarChart>
@@ -99,9 +149,15 @@ export function AdminSales() {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={salesData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+<<<<<<< HEAD
                 <XAxis
                   dataKey="productName"
                   tick={{ fill: '#666', fontSize: 10 }}
+=======
+                <XAxis 
+                  dataKey="productName" 
+                  tick={{ fill: '#666', fontSize: 10 }} 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                   axisLine={{ stroke: '#333' }}
                   tickLine={false}
                   interval={0}
@@ -109,6 +165,7 @@ export function AdminSales() {
                   textAnchor="middle"
                   height={40}
                 />
+<<<<<<< HEAD
                 <YAxis
                   tick={{ fill: '#666', fontSize: 10 }}
                   axisLine={{ stroke: '#333' }}
@@ -119,6 +176,18 @@ export function AdminSales() {
                   itemStyle={{ color: '#E2E3E4' }}
                   cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
                   formatter={(value: number) => [value, 'Units Sold']}
+=======
+                <YAxis 
+                  tick={{ fill: '#666', fontSize: 10 }} 
+                  axisLine={{ stroke: '#333' }}
+                  tickLine={false}
+                />
+                <Tooltip 
+                    contentStyle={{ backgroundColor: '#111', border: '1px solid #333' }}
+                    itemStyle={{ color: '#E2E3E4' }}
+                    cursor={{fill: 'rgba(255, 255, 255, 0.05)'}}
+                    formatter={(value: number) => [value, 'Units Sold']}
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                 />
                 <Bar dataKey="totalQuantity" fill="#E2E3E4" radius={[2, 2, 0, 0]} />
               </BarChart>

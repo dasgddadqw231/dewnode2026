@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { dbService } from "../../../utils/supabase/service";
 import { HeroImage } from "../../utils/mockDb";
+=======
+import { db, HeroImage } from "../../utils/mockDb";
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 import { Button } from "../../components/ui/button";
 import { toast } from "sonner";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
@@ -15,6 +19,7 @@ export function AdminHero() {
   const [editingTitle, setEditingTitle] = useState("");
 
   useEffect(() => {
+<<<<<<< HEAD
     const fetchImages = async () => {
       try {
         const data = await dbService.hero.getAll();
@@ -29,11 +34,20 @@ export function AdminHero() {
   const handleAdd = async () => {
     if (!newImage) return;
 
+=======
+    setImages(db.hero.getAll());
+  }, []);
+
+  const handleAdd = () => {
+    if (!newImage) return;
+    
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     if (images.length >= 3) {
       toast.error("Maximum 3 hero images allowed");
       return;
     }
 
+<<<<<<< HEAD
     try {
       await dbService.hero.add(newImage, newTitle);
       const updated = await dbService.hero.getAll();
@@ -58,6 +72,20 @@ export function AdminHero() {
         console.error("Failed to delete hero image", error);
         toast.error("Failed to delete image");
       }
+=======
+    db.hero.add(newImage, newTitle);
+    setImages(db.hero.getAll());
+    setNewImage("");
+    setNewTitle("");
+    toast.success("Image added");
+  };
+
+  const handleDelete = (id: string) => {
+    if (confirm("Delete this hero image?")) {
+      db.hero.delete(id);
+      setImages(db.hero.getAll());
+      toast.success("Image deleted");
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     }
   };
 
@@ -65,6 +93,7 @@ export function AdminHero() {
     const image = images.find(img => img.id === id);
     if (image) {
       setEditingId(id);
+<<<<<<< HEAD
       setEditingTitle(image.title || "");
     }
   };
@@ -81,6 +110,18 @@ export function AdminHero() {
       console.error("Failed to update title", error);
       toast.error("Failed to update title");
     }
+=======
+      setEditingTitle(image.title);
+    }
+  };
+
+  const handleSaveEdit = (id: string) => {
+    db.hero.update(id, { title: editingTitle });
+    setImages(db.hero.getAll());
+    setEditingId(null);
+    setEditingTitle("");
+    toast.success("Title updated");
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   };
 
   const handleCancelEdit = () => {
@@ -102,9 +143,15 @@ export function AdminHero() {
         {images.length < 3 ? (
           <div className="max-w-md space-y-6">
             <h2 className="text-[12px] font-medium tracking-[0.2em] uppercase text-brand-light">Add New Image</h2>
+<<<<<<< HEAD
             <ImageUpload
               value={newImage}
               onChange={setNewImage}
+=======
+            <ImageUpload 
+              value={newImage} 
+              onChange={setNewImage} 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
               label="Upload Hero Image"
               className="aspect-video w-full"
             />
@@ -115,8 +162,13 @@ export function AdminHero() {
               placeholder="Enter title"
               className="w-full bg-brand-gray/5 border border-brand-gray p-2 text-brand-light/40 placeholder-brand-light/40"
             />
+<<<<<<< HEAD
             <Button
               onClick={handleAdd}
+=======
+            <Button 
+              onClick={handleAdd} 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
               disabled={!newImage}
               className="w-full bg-brand-cyan text-brand-black hover:bg-brand-light rounded-none h-12 text-[11px] font-bold tracking-widest uppercase transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -136,12 +188,21 @@ export function AdminHero() {
         {images.map((img, index) => (
           <div key={img.id} className="relative group">
             <div className="aspect-[21/12] overflow-hidden border border-brand-light/10 relative bg-brand-black">
+<<<<<<< HEAD
               <ImageWithFallback
                 src={img.image}
                 alt={`Hero ${index + 1}`}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
 
+=======
+              <ImageWithFallback 
+                src={img.image} 
+                alt={`Hero ${index + 1}`} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+              
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
               <div className="absolute top-4 left-4 z-10">
                 <div className="bg-brand-black/80 backdrop-blur text-brand-cyan px-3 py-1 text-[9px] font-bold tracking-widest border border-brand-cyan/20">
                   SLIDE 0{index + 1}
@@ -149,7 +210,11 @@ export function AdminHero() {
               </div>
 
               <div className="absolute inset-0 bg-brand-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
+<<<<<<< HEAD
                 <button
+=======
+                <button 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                   onClick={() => handleDelete(img.id)}
                   className="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/50 w-12 h-12 flex items-center justify-center transition-all duration-300"
                   title="Delete Image"
@@ -169,14 +234,24 @@ export function AdminHero() {
                   className="w-full bg-brand-gray/5 border border-brand-gray p-2 text-brand-light/40 placeholder-brand-light/40"
                 />
                 <div className="flex justify-end mt-2">
+<<<<<<< HEAD
                   <Button
                     onClick={() => handleSaveEdit(img.id)}
+=======
+                  <Button 
+                    onClick={() => handleSaveEdit(img.id)} 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                     className="bg-brand-cyan text-brand-black hover:bg-brand-light rounded-none h-12 text-[11px] font-bold tracking-widest uppercase transition-colors"
                   >
                     <Check size={16} />
                   </Button>
+<<<<<<< HEAD
                   <Button
                     onClick={handleCancelEdit}
+=======
+                  <Button 
+                    onClick={handleCancelEdit} 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                     className="bg-brand-gray/5 text-brand-light/40 hover:bg-brand-gray/10 rounded-none h-12 text-[11px] font-bold tracking-widest uppercase transition-colors"
                   >
                     <X size={16} />
@@ -187,8 +262,13 @@ export function AdminHero() {
               <div className="mt-2">
                 <div className="flex items-center justify-between">
                   <span className="text-brand-light/40 text-[11px] tracking-widest uppercase">{img.title}</span>
+<<<<<<< HEAD
                   <Button
                     onClick={() => handleEdit(img.id)}
+=======
+                  <Button 
+                    onClick={() => handleEdit(img.id)} 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                     className="bg-brand-gray/5 text-brand-light/40 hover:bg-brand-gray/10 rounded-none h-12 text-[11px] font-bold tracking-widest uppercase transition-colors"
                   >
                     <Edit2 size={16} />

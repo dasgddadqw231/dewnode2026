@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+<<<<<<< HEAD
 import { dbService } from "../../../utils/supabase/service";
 import { HeroImage } from "../../utils/mockDb";
+=======
+import { db, HeroImage } from "../../utils/mockDb";
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 import { WireframePlaceholder } from "../../components/WireframePlaceholder";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 
@@ -11,6 +15,7 @@ export function HomePage() {
   const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
 
   useEffect(() => {
+<<<<<<< HEAD
     const fetchHero = async () => {
       try {
         const data = await dbService.hero.getAll();
@@ -20,6 +25,9 @@ export function HomePage() {
       }
     };
     fetchHero();
+=======
+    setHeroImages(db.hero.getAll());
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   }, []);
 
   const settings = {
@@ -41,9 +49,15 @@ export function HomePage() {
           <Slider {...settings}>
             {heroImages.map((hero) => (
               <div key={hero.id} className="relative outline-none">
+<<<<<<< HEAD
                 <div className="w-full aspect-square bg-brand-gray overflow-hidden flex items-center justify-center">
                   <div className="w-full h-full md:min-h-[533px]">
                     <ImageWithFallback
+=======
+                <div className="w-full h-[50vh] md:h-auto md:aspect-[21/12] bg-brand-gray overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-full md:min-h-[533px]">
+                    <ImageWithFallback 
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                       src={hero.image}
                       alt="Hero Image"
                       className="w-full h-full object-cover opacity-80"
@@ -70,7 +84,11 @@ export function HomePage() {
           {/* Box Container for 1, 2 and 3 */}
           <div className="bg-brand-light/[0.01] py-12 md:py-16 px-6 md:px-12 flex flex-col items-center gap-12 lg:gap-16 border-y border-brand-light/5">
             {/* 1. Small Batches Only (Top) */}
+<<<<<<< HEAD
             <p className="font-univers-39 tracking-[0.2em] md:tracking-[1em] text-brand-light uppercase opacity-80 text-[16px] md:text-[24px] text-center leading-tight font-light whitespace-nowrap">
+=======
+            <p className="tracking-[0.2em] md:tracking-[1em] text-brand-light uppercase opacity-80 text-[16px] md:text-[24px] text-center leading-tight font-light whitespace-nowrap">
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
               SMALL BATCHES ONLY
             </p>
 
@@ -91,6 +109,7 @@ export function HomePage() {
 
       {/* Company Info Section */}
       <section className="pb-12 bg-brand-black w-full flex justify-center">
+<<<<<<< HEAD
         <div className="flex flex-col items-center gap-2 text-center">
           <p className="text-[10px] md:text-[12px] text-brand-light/30 font-light tracking-[0.1em] uppercase">
             회사명 : DEW&ODE
@@ -104,6 +123,21 @@ export function HomePage() {
         </div>
       </section>
 
+=======
+         <div className="flex flex-col items-center gap-2 text-center">
+            <p className="text-[10px] md:text-[12px] text-brand-light/30 font-light tracking-[0.1em] uppercase">
+              회사명 : DEW&ODE
+            </p>
+            <p className="text-[10px] md:text-[12px] text-brand-light/30 font-light tracking-[0.1em] uppercase">
+              대표메일 : office@dewnode.com
+            </p>
+            <p className="text-[10px] md:text-[12px] text-brand-light/30 font-light tracking-[0.1em] uppercase">
+              CONTACT : INSTAGRAM, EMAIL
+            </p>
+         </div>
+      </section>
+      
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
       <style>{`
         .slick-dots li button:before {
           color: #E2E3E4 !important;

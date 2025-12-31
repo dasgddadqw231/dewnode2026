@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
 @theme {
+<<<<<<< HEAD
   --font-sans: "Univers Light", "Host Grotesk", "Gothic A1", "Inter", sans-serif;
   --font-serif: "Cormorant Garamond", serif;
   --font-univers-39: "Univers 39", "Gothic A1", "Inter", sans-serif;
+=======
+  --font-sans: "Host Grotesk", "Gothic A1", "Inter", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-univers-39: "Gothic A1", "Inter", sans-serif;
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 
   /* Custom Color Palette - The Only 4 Colors */
   --color-brand-black: #141414;
@@ -14,7 +20,11 @@
   /* Override standard colors to enforce consistency */
   --color-black: var(--color-brand-black);
   --color-white: var(--color-brand-light);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   /* Map gray scale to our limited palette */
   --color-gray-900: var(--color-brand-black);
   --color-gray-800: var(--color-brand-gray);
@@ -79,9 +89,13 @@
   }
 
   /* Override generic border colors */
+<<<<<<< HEAD
   *,
   ::before,
   ::after {
+=======
+  *, ::before, ::after {
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     border-color: var(--color-brand-gray);
   }
 }

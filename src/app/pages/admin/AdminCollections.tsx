@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { dbService } from "../../../utils/supabase/service";
 import { Collection } from "../../utils/mockDb";
+=======
+import { db, Collection } from "../../utils/mockDb";
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 import { Button } from "../../components/ui/button";
 import { ImageUpload } from "../../components/admin/ImageUpload";
 import { toast } from "sonner";
@@ -11,6 +15,7 @@ export function AdminCollections() {
   const [collections, setCollections] = useState<Collection[]>([]);
 
   useEffect(() => {
+<<<<<<< HEAD
     const fetchCollections = async () => {
       try {
         const data = await dbService.collections.getAll();
@@ -51,6 +56,28 @@ export function AdminCollections() {
         console.error("Failed to remove collection image", error);
         toast.error("Failed to remove image");
       }
+=======
+    setCollections(db.collections.getAll());
+  }, []);
+
+  const handleImageUpload = (image: string, row: number, col: number) => {
+    if (!image) return;
+    
+    db.collections.add({
+        image,
+        row,
+        col
+    });
+    setCollections(db.collections.getAll());
+    toast.success("Image added to collection");
+  };
+
+  const handleDelete = (id: string) => {
+    if (confirm("Remove image?")) {
+      db.collections.delete(id);
+      setCollections(db.collections.getAll());
+      toast.success("Image removed");
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     }
   };
 
@@ -66,6 +93,7 @@ export function AdminCollections() {
 
       <div className="bg-brand-gray/5 border border-brand-gray p-8">
         <div className="grid grid-cols-4 gap-4 aspect-square max-w-[800px] mx-auto">
+<<<<<<< HEAD
           {Array.from({ length: 16 }).map((_, index) => {
             const row = Math.floor(index / 4);
             const col = index % 4;
@@ -102,6 +130,44 @@ export function AdminCollections() {
               </div>
             );
           })}
+=======
+            {Array.from({ length: 16 }).map((_, index) => {
+                const row = Math.floor(index / 4);
+                const col = index % 4;
+                const item = getCollectionAt(row, col);
+
+                return (
+                    <div key={index} className="relative w-full h-full border border-brand-light/10 bg-brand-black flex items-center justify-center overflow-hidden group">
+                        {item ? (
+                            <>
+                                <ImageWithFallback 
+                                    src={item.image} 
+                                    alt="Collection" 
+                                    className="w-full h-full object-cover" 
+                                />
+                                <button 
+                                    onClick={() => handleDelete(item.id)}
+                                    className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white"
+                                >
+                                    <X size={24} />
+                                </button>
+                            </>
+                        ) : (
+                            <div className="w-full h-full p-2">
+                                <ImageUpload 
+                                    onChange={(val) => handleImageUpload(val, row, col)}
+                                    className="w-full h-full"
+                                    label="+"
+                                />
+                            </div>
+                        )}
+                        <div className="absolute top-1 left-2 text-[8px] text-brand-light/20 pointer-events-none">
+                            {row},{col}
+                        </div>
+                    </div>
+                );
+            })}
+>>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
         </div>
       </div>
     </div>
