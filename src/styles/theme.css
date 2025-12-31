@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Univers Light", "Host Grotesk", "Gothic A1", "Inter", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-univers-39: "Univers 39", "Gothic A1", "Inter", sans-serif;
+
+  /* Custom Color Palette - The Only 4 Colors */
+  --color-brand-black: #141414;
+  --color-brand-gray: #383838;
+  --color-brand-light: #E2E3E4;
+  --color-brand-cyan: #00E2E3;
+
+  /* Override standard colors to enforce consistency */
+  --color-black: var(--color-brand-black);
+  --color-white: var(--color-brand-light);
+
+  /* Map gray scale to our limited palette */
+  --color-gray-900: var(--color-brand-black);
+  --color-gray-800: var(--color-brand-gray);
+  --color-gray-700: var(--color-brand-gray);
+  --color-gray-600: var(--color-brand-gray);
+  --color-gray-500: var(--color-brand-gray);
+  --color-gray-400: var(--color-brand-light);
+  --color-gray-300: var(--color-brand-light);
+  --color-gray-200: var(--color-brand-gray);
+  --color-gray-100: var(--color-brand-gray);
+  --color-gray-50: var(--color-brand-black);
+
+  --color-cyan-500: var(--color-brand-cyan);
+}
+
+@layer base {
+  :root {
+    /* HSL Conversions for Shadcn/UI */
+    /* #141414 */
+    --brand-black-hsl: 0 0% 8%;
+    /* #383838 */
+    --brand-gray-hsl: 0 0% 22%;
+    /* #E2E3E4 */
+    --brand-light-hsl: 210 2% 89%;
+    /* #00E2E3 */
+    --brand-cyan-hsl: 180 100% 45%;
+
+    --background: var(--brand-black-hsl);
+    --foreground: var(--brand-light-hsl);
+
+    --card: var(--brand-black-hsl);
+    --card-foreground: var(--brand-light-hsl);
+
+    --popover: var(--brand-black-hsl);
+    --popover-foreground: var(--brand-light-hsl);
+
+    --primary: var(--brand-cyan-hsl);
+    --primary-foreground: var(--brand-black-hsl);
+
+    --secondary: var(--brand-gray-hsl);
+    --secondary-foreground: var(--brand-light-hsl);
+
+    --muted: var(--brand-gray-hsl);
+    --muted-foreground: var(--brand-light-hsl);
+
+    --accent: var(--brand-gray-hsl);
+    --accent-foreground: var(--brand-cyan-hsl);
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: var(--brand-gray-hsl);
+    --input: var(--brand-gray-hsl);
+    --ring: var(--brand-cyan-hsl);
+
+    --radius: 0rem;
+  }
+
+  body {
+    @apply bg-brand-black text-brand-light font-sans antialiased;
+    /* Force border color for all elements to be the point color */
+  }
+
+  /* Override generic border colors */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-brand-gray);
+  }
+}
