@@ -197,14 +197,14 @@ export function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeCart}
-            className="fixed inset-0 bg-brand-black/60 backdrop-blur-md z-50"
+            className="fixed inset-0 bg-brand-black/60 backdrop-blur-md z-[200]"
           />
           <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-brand-black z-50 shadow-[0_0_50px_rgba(0,0,0,0.5)] border-l border-brand-gray flex flex-col text-brand-light"
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-brand-black z-[200] shadow-[0_0_50px_rgba(0,0,0,0.5)] border-l border-brand-gray flex flex-col text-brand-light"
           >
             {/* Header with Centered Logo */}
             <div className="p-6 flex items-center justify-between border-b border-brand-gray relative">
@@ -216,7 +216,7 @@ export function CartDrawer() {
                 onClick={handleLogoClick}
                 className="absolute left-1/2 -translate-x-1/2 hover:opacity-80 transition-opacity"
               >
-                <img src={logoImg} alt="DEW&ODE" className="h-6 w-auto object-contain" />
+                <img src={logoImg} alt="DEW&ODE" className="h-8 w-auto object-contain" />
               </button>
 
               {/* Close Button */}

@@ -6,6 +6,7 @@ import { dbService } from "../../../utils/supabase/service";
 import { HeroImage } from "../../utils/mockDb";
 import { WireframePlaceholder } from "../../components/WireframePlaceholder";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
+import bottomLogoImg from "../../../assets/dewnode-bottom-logo.png";
 
 export function HomePage() {
   const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
@@ -70,7 +71,7 @@ export function HomePage() {
           {/* Box Container for 1, 2 and 3 */}
           <div className="flex flex-col items-center gap-12 lg:gap-16">
             {/* 1. Small Batches Only (Top) */}
-            <p className="font-univers-39 tracking-[0.2em] md:tracking-[1em] text-brand-light uppercase opacity-80 text-[16px] md:text-[24px] text-center leading-tight font-light whitespace-nowrap">
+            <p className="font-univers-39 tracking-[0.2em] md:tracking-[1em] text-brand-light uppercase opacity-80 text-[16px] md:text-[24px] text-center leading-tight font-light whitespace-nowrap pl-[0.2em] md:pl-[1em]">
               ESSENTIAL
             </p>
 
@@ -86,18 +87,14 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Company Info Section */}
-      <section className="pb-12 bg-brand-black w-full flex justify-center">
-        <div className="flex flex-col items-center gap-2 text-center">
-          <p className="text-[10px] md:text-[12px] text-brand-light/30 font-light tracking-[0.1em] uppercase">
-            회사명 : DEW&ODE
-          </p>
-          <p className="text-[10px] md:text-[12px] text-brand-light/30 font-light tracking-[0.1em] uppercase">
-            대표메일 : office@dewnode.com
-          </p>
-          <p className="text-[10px] md:text-[12px] text-brand-light/30 font-light tracking-[0.1em] uppercase">
-            CONTACT : INSTAGRAM, EMAIL
-          </p>
+      {/* NEW Bottom Logo Section */}
+      <section className="pt-8 pb-12 bg-brand-black w-full flex justify-center px-4">
+        <div className="w-[30px] md:w-[50px]">
+          <img
+            src={bottomLogoImg}
+            alt="DEW&ODE Bottom Logo"
+            className="w-full h-auto object-contain opacity-90"
+          />
         </div>
       </section>
       <style>{`

@@ -42,19 +42,26 @@ export function Header() {
       {/* Desktop Actions (Search/My/Cart) - Hidden on Mobile */}
       <div className="hidden md:flex justify-between items-center md:absolute md:right-16 md:top-1/2 md:-translate-y-1/2 md:w-auto">
         <div className="flex items-center gap-5 md:gap-8 text-brand-light/80">
-          {location === "/" ? (
-            <Link href="/admin">
-              <span className="cursor-pointer hover:text-brand-cyan transition-all duration-300 block text-brand-light/80" title="Admin Demo">
-                <LayoutDashboard size={18} strokeWidth={1} />
-              </span>
-            </Link>
-          ) : (
+          {location !== "/" && (
             <button
               className="cursor-pointer hover:text-brand-cyan transition-all duration-300 bg-transparent border-none p-0 outline-none"
               onClick={() => setIsSearchOpen(true)}
             >
               <Search size={18} strokeWidth={1} />
             </button>
+          )}
+          {location !== "/" && (
+            <div
+              className="cursor-pointer hover:text-brand-cyan transition-all duration-300 flex items-center relative"
+              onClick={openCart}
+            >
+              <ShoppingBag size={18} strokeWidth={1} />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 text-[7px] bg-brand-cyan text-brand-black rounded-full min-w-[12px] h-[12px] flex items-center justify-center font-bold px-0.5">
+                  {cartCount}
+                </span>
+              )}
+            </div>
           )}
           <Link href="/orders">
             <span className={cn(
@@ -64,17 +71,6 @@ export function Header() {
               <User size={18} strokeWidth={1} />
             </span>
           </Link>
-          <div
-            className="cursor-pointer hover:text-brand-cyan transition-all duration-300 flex items-center relative"
-            onClick={openCart}
-          >
-            <ShoppingBag size={18} strokeWidth={1} />
-            {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 text-[7px] bg-brand-cyan text-brand-black rounded-full min-w-[12px] h-[12px] flex items-center justify-center font-bold px-0.5">
-                {cartCount}
-              </span>
-            )}
-          </div>
         </div>
       </div>
 
@@ -117,25 +113,29 @@ export function Header() {
       {/* Mobile Top Icons (Search, Cart, Order) */}
       <div className="md:hidden absolute right-4 top-8 -translate-y-1/2 flex items-center gap-4">
         {/* Search */}
-        <button
-          className="text-brand-light/70 hover:text-brand-cyan transition-colors"
-          onClick={() => setIsSearchOpen(true)}
-        >
-          <Search size={20} strokeWidth={1} />
-        </button>
+        {location !== "/" && (
+          <button
+            className="text-brand-light/70 hover:text-brand-cyan transition-colors"
+            onClick={() => setIsSearchOpen(true)}
+          >
+            <Search size={20} strokeWidth={1} />
+          </button>
+        )}
 
         {/* Cart */}
-        <button
-          className="text-brand-light/70 hover:text-brand-cyan transition-colors relative"
-          onClick={openCart}
-        >
-          <ShoppingBag size={20} strokeWidth={1} />
-          {cartCount > 0 && (
-            <span className="absolute -top-1 -right-1 text-[8px] bg-brand-cyan text-brand-black rounded-full min-w-[12px] h-[12px] flex items-center justify-center font-bold px-0.5">
-              {cartCount}
-            </span>
-          )}
-        </button>
+        {location !== "/" && (
+          <button
+            className="text-brand-light/70 hover:text-brand-cyan transition-colors relative"
+            onClick={openCart}
+          >
+            <ShoppingBag size={20} strokeWidth={1} />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 text-[8px] bg-brand-cyan text-brand-black rounded-full min-w-[12px] h-[12px] flex items-center justify-center font-bold px-0.5">
+                {cartCount}
+              </span>
+            )}
+          </button>
+        )}
 
         {/* Order History */}
         <Link href="/orders">

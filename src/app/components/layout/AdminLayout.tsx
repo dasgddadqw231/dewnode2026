@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "../../../lib/utils";
+import adminLogo from "../../../assets/admin-logo-small.png";
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -16,16 +17,17 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex bg-brand-black text-brand-light font-sans">
       <aside className="w-64 bg-brand-black border-r border-brand-gray flex flex-col fixed h-full">
-        <div className="h-16 flex items-center px-6 border-b border-brand-gray">
+        <div className="h-16 flex items-center px-6 border-b border-brand-gray gap-2">
           <span className="font-bold text-sm tracking-[0.2em] uppercase text-brand-cyan">ADMIN CONSOLE</span>
+          <img src={adminLogo} alt="Logo" className="h-4 w-auto object-contain opacity-80" />
         </div>
         <nav className="flex-1 p-4 space-y-1">
           {links.map(link => (
             <Link key={link.href} href={link.href}>
               <div className={cn(
                 "px-4 py-3 text-[11px] uppercase tracking-widest cursor-pointer transition-colors border-b border-transparent",
-                location === link.href 
-                  ? "bg-brand-gray text-brand-cyan border-brand-cyan" 
+                location === link.href
+                  ? "bg-brand-gray text-brand-cyan border-brand-cyan"
                   : "text-brand-light/60 hover:text-brand-light hover:bg-brand-gray/50"
               )}>
                 {link.label}
