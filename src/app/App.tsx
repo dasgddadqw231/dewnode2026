@@ -13,13 +13,16 @@ import { AdminOrders } from "./pages/admin/AdminOrders";
 import { AdminSales } from "./pages/admin/AdminSales";
 import { AdminHero } from "./pages/admin/AdminHero";
 import { AdminCollections } from "./pages/admin/AdminCollections";
+import { AdminLogin } from "./pages/admin/AdminLogin";
 import { Toaster } from "sonner";
+import { useEffect } from "react";
 
 function App() {
   return (
     <>
       <Switch>
         {/* Admin Routes */}
+        <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin" component={AdminRoutes} />
         <Route path="/admin/:rest*" component={AdminRoutes} />
 
@@ -34,6 +37,15 @@ function App() {
 }
 
 function AdminRoutes() {
+  const [location, setLocation] = useLocation();
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("admin_authenticated");
+    if (!isAuthenticated) {
+      setLocation("/admin/login");
+    }
+  }, [location, setLocation]);
+
   return (
     <AdminLayout>
       <Switch>
