@@ -1,29 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-<<<<<<< HEAD
 import { dbService } from "../../../utils/supabase/service";
 import { Product } from "../../utils/mockDb";
 import { cn } from "../../../lib/utils";
-=======
-import { db, Product } from "../../utils/mockDb";
-import { cn } from "../../../../lib/utils";
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 
 export function SearchResultsPage() {
   const [location] = useLocation();
   const [results, setResults] = useState<Product[]>([]);
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   // Get query from URL whenever location changes or component mounts
   const searchParams = new URLSearchParams(window.location.search);
   const query = searchParams.get("search") || "";
 
   useEffect(() => {
-<<<<<<< HEAD
     const performSearch = async () => {
       const searchParams = new URLSearchParams(window.location.search);
       const query = searchParams.get("search") || "";
@@ -39,18 +29,6 @@ export function SearchResultsPage() {
         } catch (error) {
           console.error("Failed to search products", error);
         }
-=======
-    const performSearch = () => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const query = searchParams.get("search") || "";
-      
-      if (query) {
-        const filtered = db.products.getAll().filter(p => 
-          p.name.toLowerCase().includes(query.toLowerCase()) || 
-          (p.description && p.description.toLowerCase().includes(query.toLowerCase()))
-        );
-        setResults(filtered);
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
       } else {
         setResults([]);
       }
@@ -65,11 +43,7 @@ export function SearchResultsPage() {
     };
 
     window.addEventListener('search-update', handleSearchUpdate);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     // Also listen for popstate (browser back/forward)
     window.addEventListener('popstate', handleSearchUpdate);
 
@@ -80,9 +54,9 @@ export function SearchResultsPage() {
   }, [location]);
 
   return (
-    <div className="w-full bg-brand-black min-h-screen pt-[120px]">
+    <div className="w-full bg-brand-black min-h-screen pt-16 md:pt-[120px]">
       {/* Search Result Header - Schematic Style */}
-      <div className="max-w-[1440px] mx-auto px-8 pb-20 border-b border-brand-light/5">
+      <div className="max-w-[1440px] mx-auto px-8 pb-8 md:pb-20 border-b border-brand-light/5">
         <div className="flex flex-col items-center text-center">
           <h2 className="text-[24px] md:text-[32px] font-light tracking-[0.4em] text-brand-light uppercase">
             {query}
@@ -90,28 +64,19 @@ export function SearchResultsPage() {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-8 py-24">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-8 md:py-24">
         {results.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-12 md:gap-x-10 md:gap-y-24">
             {results.map((product) => (
               <Link key={product.id} href={`/shop/${product.id}`}>
                 <div className="group cursor-pointer">
-                  <div className="aspect-[4/5] mb-6 overflow-hidden relative bg-brand-gray/5 border border-brand-light/5">
-<<<<<<< HEAD
+                  <div className="aspect-[4/5] mb-3 md:mb-8 overflow-hidden relative bg-brand-gray/5 border border-brand-light/5">
                     <ImageWithFallback
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0"
                     />
 
-=======
-                    <ImageWithFallback 
-                      src={product.image}
-                      alt={product.name} 
-                      className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0"
-                    />
-                    
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                     <div className="absolute top-0 left-0 z-10">
                       {product.isSoldOut && (
                         <div className="bg-brand-cyan text-brand-black px-3 py-1.5 text-[7px] tracking-[0.2em] uppercase font-bold">
@@ -120,11 +85,7 @@ export function SearchResultsPage() {
                       )}
                     </div>
                   </div>
-<<<<<<< HEAD
 
-=======
-                  
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                   <div className="space-y-3 px-1">
                     <h3 className="text-[10px] font-normal text-brand-light uppercase tracking-[0.2em]">
                       {product.name}

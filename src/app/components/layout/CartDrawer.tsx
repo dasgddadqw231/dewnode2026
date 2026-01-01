@@ -3,23 +3,13 @@ import { useCart } from "../../context/CartContext";
 import { X, Minus, Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
-<<<<<<< HEAD
 import { dbService } from "../../../utils/supabase/service";
-import { db } from "../../utils/mockDb";
 import { useState, useEffect } from "react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import logoImg from "../../../logo.png";
 import { useLocation } from "wouter";
-import { projectId, publicAnonKey } from "../../../../utils/supabase/info";
+import { projectId } from "../../../../utils/supabase/info";
 import { supabase } from "../../../../utils/supabase/client";
-=======
-import { db } from "../../utils/mockDb";
-import { useState, useEffect } from "react";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
-import logoImg from "figma:asset/125e01c0368c5cef3f56649d3abb745a00e9ee3d.png";
-import { useLocation } from "wouter";
-import { projectId, publicAnonKey } from "../../../../utils/supabase/info";
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 
 // Daum Postcode API types
 declare global {
@@ -29,20 +19,13 @@ declare global {
 }
 
 export function CartDrawer() {
-<<<<<<< HEAD
   const { isOpen, closeCart, items, removeItem, updateQuantity, total, clearCart, openCart } = useCart();
-=======
-  const { isOpen, closeCart, items, removeItem, updateQuantity, total, clearCart } = useCart();
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [email, setEmail] = useState("");
   const [isLinkSent, setIsLinkSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [isSendingLink, setIsSendingLink] = useState(false);
-<<<<<<< HEAD
   const [otp, setOtp] = useState("");
-=======
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   const [postcode, setPostcode] = useState("");
   const [address, setAddress] = useState("");
   const [_, setLocation] = useLocation();
@@ -61,7 +44,6 @@ export function CartDrawer() {
     };
   }, []);
 
-<<<<<<< HEAD
   // Check if email was previously verified
   useEffect(() => {
     const verifiedEmail = localStorage.getItem('verifiedEmail');
@@ -72,58 +54,10 @@ export function CartDrawer() {
   }, []);
 
   const handleSendOtp = async () => {
-=======
-  // Check for Magic Link callback on mount
-  useEffect(() => {
-    const checkMagicLink = async () => {
-      const hash = window.location.hash;
-      const params = new URLSearchParams(hash.substring(1));
-      const accessToken = params.get('access_token');
-      
-      if (accessToken) {
-        try {
-          const response = await fetch(`${API_URL}/verify-magic-link`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${publicAnonKey}`
-            },
-            body: JSON.stringify({ access_token: accessToken })
-          });
-          
-          const data = await response.json();
-          
-          if (data.success && data.email) {
-            setEmail(data.email);
-            setIsVerified(true);
-            localStorage.setItem('verifiedEmail', data.email);
-            toast.success("EMAIL VERIFIED SUCCESSFULLY");
-            // Clear hash from URL
-            window.history.replaceState(null, '', window.location.pathname);
-          }
-        } catch (error) {
-          console.error('Magic Link verification error:', error);
-        }
-      }
-      
-      // Check if email was previously verified
-      const verifiedEmail = localStorage.getItem('verifiedEmail');
-      if (verifiedEmail) {
-        setEmail(verifiedEmail);
-        setIsVerified(true);
-      }
-    };
-    
-    checkMagicLink();
-  }, []);
-
-  const handleSendMagicLink = async () => {
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     if (!email || !email.includes('@')) {
       toast.error("PLEASE ENTER A VALID EMAIL");
       return;
     }
-<<<<<<< HEAD
 
     setIsSendingLink(true);
 
@@ -141,44 +75,11 @@ export function CartDrawer() {
     } catch (error) {
       console.error('Send OTP error:', error);
       toast.error("FAILED TO SEND VERIFICATION CODE");
-=======
-    
-    setIsSendingLink(true);
-    
-    try {
-      console.log('Sending Magic Link to:', email);
-      
-      const response = await fetch(`${API_URL}/send-magic-link`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${publicAnonKey}`
-        },
-        body: JSON.stringify({ email })
-      });
-      
-      const data = await response.json();
-      
-      console.log('Magic Link response:', data);
-      
-      if (data.success) {
-        setIsLinkSent(true);
-        localStorage.setItem('pendingVerificationEmail', email);
-        toast.success("VERIFICATION LINK SENT TO EMAIL");
-      } else {
-        console.error('Magic Link send failed:', data);
-        toast.error(data.details || data.error || "FAILED TO SEND LINK");
-      }
-    } catch (error) {
-      console.error('Send Magic Link error:', error);
-      toast.error("FAILED TO SEND VERIFICATION LINK");
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     } finally {
       setIsSendingLink(false);
     }
   };
 
-<<<<<<< HEAD
   const handleVerifyOtp = async () => {
     if (!otp || otp.length < 6) {
       toast.error("PLEASE ENTER VALID CODE");
@@ -209,17 +110,11 @@ export function CartDrawer() {
     }
   };
 
-=======
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
     const name = (form.elements.namedItem('name') as HTMLInputElement).value;
-    const address = (form.elements.namedItem('address') as HTMLInputElement).value;
-<<<<<<< HEAD
     const addressDetail = (form.elements.namedItem('addressDetail') as HTMLInputElement).value;
-    const postcode = (form.elements.namedItem('postcode') as HTMLInputElement).value;
     const phone = (form.elements.namedItem('phone') as HTMLInputElement).value;
 
     if (!address || !postcode || !addressDetail) {
@@ -277,42 +172,6 @@ export function CartDrawer() {
       console.error("Order creation failed", error);
       toast.error("Failed to place order. Please try again.");
     }
-=======
-    const phone = (form.elements.namedItem('phone') as HTMLInputElement).value;
-
-    // Create order
-    db.orders.create({
-      email,
-      customerName: name,
-      customerAddress: address,
-      customerPhone: phone,
-      totalAmount: total,
-      items: items.map(i => ({
-        productId: i.id,
-        quantity: i.quantity,
-        priceAtPurchase: i.price,
-        productName: i.name,
-        productImage: i.image
-      }))
-    });
-
-    // Update stock for each product
-    items.forEach(item => {
-      const product = db.products.getById(item.id);
-      if (product) {
-        const newStock = product.stock - item.quantity;
-        db.products.update(item.id, { 
-          stock: newStock,
-          isSoldOut: newStock <= 0
-        });
-      }
-    });
-
-    clearCart();
-    closeCart();
-    setIsCheckingOut(false);
-    toast.success("Order placed successfully! Check your email for details.");
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   };
 
   const handleLogoClick = () => {
@@ -353,11 +212,7 @@ export function CartDrawer() {
               <div className="w-9 h-9 opacity-0 pointer-events-none"></div>
 
               {/* Centered Logo */}
-<<<<<<< HEAD
               <button
-=======
-              <button 
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                 onClick={handleLogoClick}
                 className="absolute left-1/2 -translate-x-1/2 hover:opacity-80 transition-opacity"
               >
@@ -365,13 +220,8 @@ export function CartDrawer() {
               </button>
 
               {/* Close Button */}
-<<<<<<< HEAD
               <button
                 onClick={closeCart}
-=======
-              <button 
-                onClick={closeCart} 
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                 className="p-2 hover:bg-brand-gray/50 rounded-full transition-colors cursor-pointer text-brand-light z-10"
               >
                 <X size={20} strokeWidth={1} />
@@ -390,7 +240,6 @@ export function CartDrawer() {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <div className="flex gap-2">
-<<<<<<< HEAD
                         <input
                           name="email"
                           required
@@ -436,40 +285,6 @@ export function CartDrawer() {
                         </div>
                       )}
 
-=======
-                        <input 
-                          name="email" 
-                          required 
-                          type="email" 
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          disabled={isVerified}
-                          placeholder="EMAIL" 
-                          className="flex-1 p-4 bg-brand-black border border-brand-gray text-[11px] tracking-widest focus:outline-none focus:border-brand-cyan transition-colors placeholder:text-brand-light/20 disabled:opacity-50 disabled:bg-brand-gray/20" 
-                        />
-                        {!isVerified && (
-                          <Button 
-                            type="button"
-                            variant="outline"
-                            onClick={handleSendMagicLink}
-                            disabled={isSendingLink || !email}
-                            className="px-4 text-[9px] tracking-widest border-brand-gray text-brand-light hover:bg-brand-gray rounded-none h-auto disabled:opacity-50"
-                          >
-                            {isSendingLink ? "SENDING..." : isLinkSent ? "RESEND" : "SEND LINK"}
-                          </Button>
-                        )}
-                      </div>
-                      
-                      {isLinkSent && !isVerified && (
-                        <div className="p-4 bg-brand-cyan/10 border border-brand-cyan/30 animate-in fade-in slide-in-from-top-2">
-                          <p className="text-[10px] text-brand-cyan tracking-widest uppercase leading-relaxed">
-                            📧 VERIFICATION LINK SENT!<br/>
-                            CHECK YOUR EMAIL AND CLICK THE LINK TO VERIFY
-                          </p>
-                        </div>
-                      )}
-                      
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                       {isVerified && (
                         <div className="flex items-center gap-2 p-3 bg-brand-cyan/10 border border-brand-cyan/30 animate-in fade-in">
                           <span className="text-[11px] text-brand-cyan tracking-widest uppercase font-bold">✓ EMAIL VERIFIED</span>
@@ -481,7 +296,6 @@ export function CartDrawer() {
                     <input name="phone" required type="tel" placeholder="PHONE NUMBER" className="w-full p-4 bg-brand-black border border-brand-gray text-[11px] tracking-widest focus:outline-none focus:border-brand-cyan transition-colors placeholder:text-brand-light/20" />
                     <div className="space-y-3">
                       <div className="flex gap-2">
-<<<<<<< HEAD
                         <input
                           type="text"
                           name="postcode"
@@ -492,17 +306,6 @@ export function CartDrawer() {
                           className="flex-1 p-4 bg-brand-black border border-brand-gray text-[11px] tracking-widest focus:outline-none placeholder:text-brand-light/20"
                         />
                         <Button
-=======
-                        <input 
-                          type="text" 
-                          name="postcode" 
-                          readOnly 
-                          value={postcode}
-                          placeholder="POSTCODE" 
-                          className="flex-1 p-4 bg-brand-black border border-brand-gray text-[11px] tracking-widest focus:outline-none placeholder:text-brand-light/20" 
-                        />
-                        <Button 
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                           type="button"
                           variant="outline"
                           className="px-6 h-auto text-[10px] tracking-widest border-brand-cyan/30 text-brand-cyan hover:bg-brand-cyan/10 rounded-none"
@@ -511,7 +314,6 @@ export function CartDrawer() {
                           SEARCH
                         </Button>
                       </div>
-<<<<<<< HEAD
                       <input
                         type="text"
                         name="address"
@@ -527,21 +329,6 @@ export function CartDrawer() {
                         required
                         placeholder="DETAIL ADDRESS"
                         className="w-full p-4 bg-brand-black border border-brand-gray text-[11px] tracking-widest focus:outline-none focus:border-brand-cyan transition-colors placeholder:text-brand-light/20"
-=======
-                      <input 
-                        type="text" 
-                        name="address" 
-                        readOnly 
-                        value={address}
-                        placeholder="BASE ADDRESS" 
-                        className="w-full p-4 bg-brand-black border border-brand-gray text-[11px] tracking-widest focus:outline-none placeholder:text-brand-light/20" 
-                      />
-                      <input 
-                        type="text" 
-                        name="addressDetail" 
-                        placeholder="DETAIL ADDRESS" 
-                        className="w-full p-4 bg-brand-black border border-brand-gray text-[11px] tracking-widest focus:outline-none focus:border-brand-cyan transition-colors placeholder:text-brand-light/20" 
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                       />
                     </div>
 
@@ -553,11 +340,7 @@ export function CartDrawer() {
                       <span className="text-[18px] font-medium tracking-widest text-brand-cyan">{total.toLocaleString()} KRW</span>
                     </div>
                   </div>
-<<<<<<< HEAD
 
-=======
-                  
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                   <div className="bg-brand-gray/10 border border-brand-gray p-6 mt-8 text-[11px] text-brand-light/60 space-y-3 uppercase tracking-widest leading-relaxed">
                     <p className="font-bold text-brand-cyan">Bank Transfer Info</p>
                     <p>Bank: WOORI BANK</p>
@@ -571,26 +354,18 @@ export function CartDrawer() {
                     </p>
                     <div className="flex gap-4">
                       <Button type="button" variant="outline" className="flex-1 border-brand-gray text-brand-light rounded-none h-14 text-[10px] tracking-widest uppercase" onClick={() => setIsCheckingOut(false)}>Back</Button>
-                      <Button type="submit" className="flex-1 bg-brand-cyan text-brand-black hover:bg-brand-light rounded-none h-14 text-[10px] font-bold tracking-widest uppercase transition-colors">Place Order</Button>
+                      <Button type="submit" className="flex-1 bg-brand-cyan text-brand-black hover:bg-brand-light rounded-none h-14 text-[18px] font-light tracking-[0.25em] uppercase transition-colors" style={{ fontFamily: "'Univers 39', sans-serif" }}>Place Order</Button>
                     </div>
                   </div>
                 </form>
               ) : (
                 items.map(item => (
                   <div key={item.id} className="flex gap-6">
-<<<<<<< HEAD
                     <div className="w-20 h-20 flex-shrink-0 overflow-hidden border border-brand-light/5">
                       <ImageWithFallback
                         src={item.image}
                         alt={item.name}
                         className="w-full h-full object-cover grayscale"
-=======
-                    <div className="w-20 h-24 flex-shrink-0 overflow-hidden border border-brand-light/5">
-                      <ImageWithFallback 
-                        src={item.image} 
-                        alt={item.name}
-                        className="w-full h-full object-cover grayscale" 
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-between py-1">
@@ -601,26 +376,16 @@ export function CartDrawer() {
                         </button>
                       </div>
                       <p className="text-[11px] text-brand-light/60 tracking-wider">{item.price.toLocaleString()} KRW</p>
-<<<<<<< HEAD
 
                       <div className="flex items-center gap-4">
                         <button
-=======
-                      
-                      <div className="flex items-center gap-4">
-                        <button 
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           className="w-7 h-7 flex items-center justify-center border border-brand-gray/50 hover:border-brand-cyan transition-colors cursor-pointer"
                         >
                           <Minus size={10} />
                         </button>
                         <span className="text-[11px] w-4 text-center text-brand-light">{item.quantity}</span>
-<<<<<<< HEAD
                         <button
-=======
-                        <button 
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="w-7 h-7 flex items-center justify-center border border-brand-gray/50 hover:border-brand-cyan transition-colors cursor-pointer"
                         >
@@ -639,19 +404,12 @@ export function CartDrawer() {
                   <span className="text-[11px] font-medium text-brand-light/40 uppercase tracking-[0.2em]">TOTAL</span>
                   <span className="text-lg font-medium tracking-widest text-brand-cyan">{total.toLocaleString()} KRW</span>
                 </div>
-<<<<<<< HEAD
                 <Button
-                  className="w-full bg-brand-cyan text-brand-black hover:bg-brand-light rounded-none h-16 tracking-[0.3em] font-bold text-[11px] uppercase transition-colors"
+                  className="w-full bg-brand-cyan text-brand-black hover:bg-brand-light rounded-none h-16 tracking-[0.25em] font-light text-[24px] uppercase transition-colors"
                   onClick={() => setIsCheckingOut(true)}
+                  style={{ fontFamily: "'Univers 39', sans-serif" }}
                 >
                   {isVerified ? "CHECKOUT (VERIFIED)" : "CHECKOUT"}
-=======
-                <Button 
-                  className="w-full bg-brand-cyan text-brand-black hover:bg-brand-light rounded-none h-16 tracking-[0.3em] font-bold text-[11px] uppercase transition-colors"
-                  onClick={() => setIsCheckingOut(true)}
-                >
-                  CHECKOUT
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                 </Button>
               </div>
             )}

@@ -125,6 +125,7 @@ export const dbService = {
                 customerName: o.customer_name,
                 customerAddress: o.customer_address,
                 customerPhone: o.customer_phone,
+                trackingNumber: o.tracking_number,
                 createdAt: o.created_at,
                 items: o.order_items.map((i: any) => ({
                     productId: i.product_id,
@@ -156,6 +157,7 @@ export const dbService = {
                 customerName: o.customer_name,
                 customerAddress: o.customer_address,
                 customerPhone: o.customer_phone,
+                trackingNumber: o.tracking_number,
                 createdAt: o.created_at,
                 items: o.order_items.map((i: any) => ({
                     productId: i.product_id,
@@ -200,6 +202,11 @@ export const dbService = {
 
         updateStatus: async (id: string, status: Order['status']) => {
             const { error } = await supabase.from('orders').update({ status }).eq('id', id);
+            if (error) throw error;
+        },
+
+        updateTracking: async (id: string, trackingNumber: string) => {
+            const { error } = await supabase.from('orders').update({ tracking_number: trackingNumber }).eq('id', id);
             if (error) throw error;
         }
     },

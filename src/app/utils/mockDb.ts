@@ -1,19 +1,11 @@
 import { nanoid } from 'nanoid';
-<<<<<<< HEAD
 const providedImage = 'https://images.unsplash.com/photo-1705948731485-6e4c6c180d0d?q=80&w=1000&auto=format&fit=crop';
-=======
-import providedImage from 'figma:asset/d880e991789adcdfed64bbbfedc73fe2994651bf.png';
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
 
 // Types
 export interface Product {
   id: string;
   name: string;
   price: number;
-<<<<<<< HEAD
-=======
-  category: 'OUTER' | 'TOP' | 'BOTTOM' | 'ACC';
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   image: string;
   detailImages?: string[];
   description?: string;
@@ -43,6 +35,7 @@ export interface Order {
   customerName: string;
   customerAddress: string;
   customerPhone: string;
+  trackingNumber?: string;
 }
 
 export interface Collection {
@@ -65,10 +58,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '1',
     name: 'STAINLESS PLATE 240',
     price: 48000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: providedImage,
     stock: 10,
     isSoldOut: false,
@@ -78,10 +67,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '2',
     name: 'BRUSHED METAL BOWL',
     price: 36000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1705948731485-6e4c6c180d0d?q=80&w=1000&auto=format&fit=crop',
     stock: 15,
     isSoldOut: false,
@@ -91,10 +76,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '3',
     name: 'INDUSTRIAL CUTLERY SET',
     price: 52000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1616447194074-200c22166a5e?q=80&w=1000&auto=format&fit=crop',
     stock: 20,
     isSoldOut: false,
@@ -104,10 +85,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '4',
     name: 'CYLINDRICAL STORAGE 01',
     price: 42000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1699349360395-58ae635530f8?q=80&w=1000&auto=format&fit=crop',
     stock: 8,
     isSoldOut: false,
@@ -117,10 +94,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '5',
     name: 'METAL TRAY LARGE',
     price: 85000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1658472326330-2e7bea174f75?q=80&w=1000&auto=format&fit=crop',
     stock: 5,
     isSoldOut: false,
@@ -130,10 +103,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '6',
     name: 'PRECISION FORK',
     price: 18000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1699484477621-1f6ecb1d153f?q=80&w=1000&auto=format&fit=crop',
     stock: 50,
     isSoldOut: false,
@@ -143,10 +112,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '7',
     name: 'MINIMAL STEEL CUP',
     price: 24000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1676496220014-43540212ef5b?q=80&w=1000&auto=format&fit=crop',
     stock: 30,
     isSoldOut: false,
@@ -156,10 +121,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '8',
     name: 'STAINLESS PLATE 180',
     price: 32000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1705948731485-6e4c6c180d0d?q=80&w=1000&auto=format&fit=crop',
     stock: 12,
     isSoldOut: false,
@@ -169,10 +130,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '9',
     name: 'METAL STORAGE JAR S',
     price: 28000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1699349360395-58ae635530f8?q=80&w=1000&auto=format&fit=crop',
     stock: 18,
     isSoldOut: false,
@@ -182,10 +139,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '10',
     name: 'INDUSTRIAL SPOON',
     price: 18000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1699484477621-1f6ecb1d153f?q=80&w=1000&auto=format&fit=crop',
     stock: 45,
     isSoldOut: false,
@@ -195,10 +148,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '11',
     name: 'STEEL BREAD TRAY',
     price: 64000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1658472326330-2e7bea174f75?q=80&w=1000&auto=format&fit=crop',
     stock: 7,
     isSoldOut: false,
@@ -208,10 +157,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '12',
     name: 'MINIMAL CARAFE METAL',
     price: 92000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1676496220014-43540212ef5b?q=80&w=1000&auto=format&fit=crop',
     stock: 4,
     isSoldOut: false,
@@ -221,10 +166,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '13',
     name: 'PRECISION KNIFE',
     price: 22000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1616447194074-200c22166a5e?q=80&w=1000&auto=format&fit=crop',
     stock: 25,
     isSoldOut: false,
@@ -234,10 +175,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '14',
     name: 'METAL BASE STAND',
     price: 120000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: 'https://images.unsplash.com/photo-1699349360395-58ae635530f8?q=80&w=1000&auto=format&fit=crop',
     stock: 3,
     isSoldOut: false,
@@ -247,10 +184,6 @@ const INITIAL_PRODUCTS: Product[] = [
     id: '15',
     name: 'STAINLESS PLATE SET',
     price: 145000,
-<<<<<<< HEAD
-=======
-    category: 'ACC',
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     image: providedImage,
     stock: 6,
     isSoldOut: false,
@@ -324,11 +257,7 @@ const INITIAL_ORDERS: Order[] = [
     customerAddress: 'Busan, Haeundae-gu',
     customerPhone: '010-9876-5432'
   },
-<<<<<<< HEAD
   {
-=======
-   {
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
     id: 'ord_003',
     email: 'park@example.com',
     items: [
@@ -380,19 +309,11 @@ export const db = {
     getAll: () => STORAGE.orders as Order[],
     getByEmail: (email: string) => (STORAGE.orders as Order[]).filter(o => o.email === email),
     create: (order: Omit<Order, 'id' | 'createdAt' | 'status'>) => {
-<<<<<<< HEAD
       const newOrder: Order = {
         ...order,
         id: nanoid(),
         createdAt: new Date().toISOString(),
         status: 'PENDING'
-=======
-      const newOrder: Order = { 
-        ...order, 
-        id: nanoid(), 
-        createdAt: new Date().toISOString(),
-        status: 'PENDING' 
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
       };
       STORAGE.orders = [newOrder, ...STORAGE.orders];
       return newOrder;
@@ -406,11 +327,7 @@ export const db = {
     add: (col: Omit<Collection, 'id'>) => {
       // Remove existing item at same position if any
       STORAGE.collections = STORAGE.collections.filter((c: Collection) => c.row !== col.row || c.col !== col.col);
-<<<<<<< HEAD
 
-=======
-      
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
       const newCol = { ...col, id: nanoid() };
       STORAGE.collections = [...STORAGE.collections, newCol];
     },

@@ -1,5 +1,4 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import { dbService } from "../../../utils/supabase/service";
 import { Order } from "../../utils/mockDb";
 import { Button } from "../../components/ui/button";
@@ -72,23 +71,6 @@ export function OrderHistoryPage() {
       console.error('Verify OTP error:', error);
       toast.error("INVALID VERIFICATION CODE");
     }
-=======
-import { db, Order } from "../../utils/mockDb";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { WireframePlaceholder } from "../../components/WireframePlaceholder";
-
-export function OrderHistoryPage() {
-  const [email, setEmail] = useState("");
-  const [orders, setOrders] = useState<Order[] | null>(null);
-  const [searched, setSearched] = useState(false);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    const found = db.orders.getByEmail(email);
-    setOrders(found);
-    setSearched(true);
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
   };
 
   return (
@@ -96,7 +78,6 @@ export function OrderHistoryPage() {
       <h1 className="text-xl font-light tracking-[0.4em] text-center mb-16 uppercase text-brand-light">ORDER HISTORY</h1>
 
       {!searched ? (
-<<<<<<< HEAD
         <div className="space-y-10 max-w-sm mx-auto">
           {!isOtpSent ? (
             <form onSubmit={handleSendOtp} className="space-y-6">
@@ -110,7 +91,7 @@ export function OrderHistoryPage() {
                   className="rounded-none h-14 bg-brand-black border-brand-gray text-brand-light text-[11px] tracking-widest focus-visible:ring-brand-cyan placeholder:text-brand-light/20"
                 />
               </div>
-              <Button disabled={isSending} type="submit" className="w-full h-14 rounded-none bg-brand-cyan text-brand-black text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-brand-light transition-colors disabled:opacity-50">
+              <Button disabled={isSending} type="submit" className="w-full h-14 rounded-none bg-brand-cyan text-brand-black text-[18px] font-light tracking-[0.25em] uppercase hover:bg-brand-light transition-colors disabled:opacity-50" style={{ fontFamily: "'Univers 39', sans-serif" }}>
                 {isSending ? "SENDING..." : "SEND CODE"}
               </Button>
             </form>
@@ -147,23 +128,6 @@ export function OrderHistoryPage() {
             </div>
           )}
         </div>
-=======
-        <form onSubmit={handleSearch} className="space-y-10 max-w-sm mx-auto">
-          <div className="space-y-4">
-            <Input 
-              type="email" 
-              placeholder="EMAIL ADDRESS" 
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="rounded-none h-14 bg-brand-black border-brand-gray text-brand-light text-[11px] tracking-widest focus-visible:ring-brand-cyan placeholder:text-brand-light/20"
-            />
-          </div>
-          <Button type="submit" className="w-full h-14 rounded-none bg-brand-cyan text-brand-black text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-brand-light transition-colors">
-            Check Orders
-          </Button>
-        </form>
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
       ) : (
         <div className="space-y-16">
           <div className="flex justify-between items-center pb-6 border-b border-brand-gray">
@@ -180,7 +144,6 @@ export function OrderHistoryPage() {
                   <div className="space-y-1">
                     <p className="text-[10px] text-brand-light/40 uppercase tracking-widest">Order ID: {order.id}</p>
                     <p className="text-[10px] text-brand-light/40 uppercase tracking-widest">{new Date(order.createdAt).toLocaleDateString()}</p>
-<<<<<<< HEAD
                     <div className="pt-2">
                       <p className="text-[10px] text-brand-light/60 uppercase tracking-widest">{order.customerAddress}</p>
                       <p className="text-[10px] text-brand-light/60 uppercase tracking-widest">{order.customerPhone}</p>
@@ -194,18 +157,12 @@ export function OrderHistoryPage() {
                             order.status === 'COMPLETED' ? '배송 완료' :
                               order.status === 'TvCancelled' ? '취소' :
                                 order.status}
-=======
-                  </div>
-                  <div className="flex flex-col items-end gap-1.5">
-                    <span className="px-4 py-1.5 border border-brand-cyan text-brand-cyan text-[9px] font-bold uppercase tracking-[0.2em]">
-                      {order.status === 'PENDING' ? '입금 확인 중' : 
-                       order.status === 'PAID' ? '상품 준비 중' : 
-                       order.status === 'SHIPPED' ? '배송 중' : 
-                       order.status === 'COMPLETED' ? '배송 완료' : 
-                       order.status === 'TvCancelled' ? '취소' :
-                       order.status}
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                     </span>
+                    {order.trackingNumber && (
+                      <p className="text-[10px] text-brand-cyan tracking-widest mt-2 uppercase">
+                        TRACKING CODE: {order.trackingNumber}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -228,7 +185,6 @@ export function OrderHistoryPage() {
                   <div className="flex gap-4 items-center">
                     <span className="text-[11px] uppercase tracking-widest text-brand-light/40">Total</span>
                     {(order.status === 'PENDING' || order.status === 'PAID') && (
-<<<<<<< HEAD
                       <button
                         onClick={async () => {
                           if (window.confirm('정말로 주문을 취소하시겠습니까?')) {
@@ -241,15 +197,6 @@ export function OrderHistoryPage() {
                               console.error(error);
                               toast.error("Failed to cancel order");
                             }
-=======
-                      <button 
-                        onClick={() => {
-                          if (window.confirm('정말로 주문을 취소하시겠습니까?')) {
-                            db.orders.updateStatus(order.id, 'TvCancelled');
-                            // 새로고침을 위해 상태 업데이트
-                            const updated = db.orders.getByEmail(email);
-                            setOrders(updated);
->>>>>>> 51711f9e812bcbd7f4fae318a162b88a401f618e
                           }
                         }}
                         className="ml-4 text-[9px] text-brand-light/20 hover:text-brand-cyan transition-colors uppercase tracking-[0.2em] underline underline-offset-4 cursor-pointer"
