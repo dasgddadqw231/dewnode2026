@@ -83,12 +83,12 @@ export function Header() {
 
       {/* Navigation (Shop/Collection) - Visible on both Mobile and Desktop */}
       <div className="flex flex-col items-center w-full mt-2">
-        <div className="flex items-center w-full justify-center relative">
-          <div className="flex-1 flex justify-end items-center">
+        <div className="w-full relative h-[20px]">
+          <div className="absolute left-[25%] -translate-x-1/2">
             <Link
               href="/shop"
               className={cn(
-                "text-[11px] md:text-[8px] uppercase tracking-[0.4em] md:tracking-[0.8em] font-light hover:text-brand-cyan transition-all duration-500 pr-12 md:pr-36",
+                "text-[11px] md:text-[8px] uppercase tracking-[0.4em] md:tracking-[0.8em] font-light hover:text-brand-cyan transition-all duration-500 whitespace-nowrap",
                 location === "/shop" ? "text-brand-cyan" : "text-brand-light/50"
               )}
             >
@@ -96,11 +96,11 @@ export function Header() {
             </Link>
           </div>
 
-          <div className="flex-1 flex justify-start items-center">
+          <div className="absolute left-[75%] -translate-x-1/2">
             <Link
               href="/collection"
               className={cn(
-                "text-[11px] md:text-[8px] uppercase tracking-[0.4em] md:tracking-[0.8em] font-light hover:text-brand-cyan transition-all duration-500 pl-12 md:pl-36",
+                "text-[11px] md:text-[8px] uppercase tracking-[0.4em] md:tracking-[0.8em] font-light hover:text-brand-cyan transition-all duration-500 whitespace-nowrap",
                 location === "/collection" ? "text-brand-cyan" : "text-brand-light/50"
               )}
             >

@@ -16,14 +16,14 @@ export function UserLayout({ children }: UserLayoutProps) {
     <CartProvider>
       <div className="min-h-screen flex flex-col bg-brand-black">
         <Header />
-        <main className="flex-1 pt-[80px] md:pt-[120px]">
+        <main className="flex-1 pt-[110px] md:pt-[120px]">
           {location === "/collection" ? (
             <MinimalCollectionGrid />
           ) : (
             children
           )}
         </main>
-        
+
         <div className="w-full bg-brand-black pb-8 flex justify-center text-center">
           {location !== "/collection" && (
             null

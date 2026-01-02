@@ -87,16 +87,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* NEW Bottom Logo Section */}
-      <section className="pt-8 pb-12 bg-brand-black w-full flex justify-center px-4">
-        <div className="w-[30px] md:w-[50px]">
-          <img
-            src={bottomLogoImg}
-            alt="DEW&ODE Bottom Logo"
-            className="w-full h-auto object-contain opacity-90"
-          />
-        </div>
-      </section>
+
       <style>{`
         .slick-dots li button:before {
           color: #E2E3E4 !important;
