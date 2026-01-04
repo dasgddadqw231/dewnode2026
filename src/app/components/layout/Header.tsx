@@ -104,7 +104,7 @@ export function Header() {
                 location === "/collection" ? "text-brand-cyan" : "text-brand-light/50"
               )}
             >
-              Collection
+              EDIT
             </Link>
           </div>
         </div>

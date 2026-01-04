@@ -186,6 +186,17 @@ export function CartDrawer() {
 
   const openPostcode = () => {
     new window.daum.Postcode({
+      theme: {
+        bgColor: "#141414", // Background Color
+        searchBgColor: "#141414", // Background Color
+        contentBgColor: "#141414", // Background Color
+        pageBgColor: "#141414", // Background Color
+        textColor: "#E2E3E4", // Brand Light (General Text)
+        queryTextColor: "#E2E3E4", // Brand Light (Search Text)
+        postcodeTextColor: "#00E2E3", // Brand Cyan (Postcode Numbers)
+        emphTextColor: "#00E2E3", // Brand Cyan (Examples '예)...')
+        outlineColor: "#383838" // Brand Gray (Borders)
+      },
       oncomplete: (data: any) => {
         setPostcode(data.zonecode);
         setAddress(data.address);
@@ -413,7 +424,7 @@ export function CartDrawer() {
                   onClick={() => setIsCheckingOut(true)}
                   style={{ fontFamily: "'Univers 39', sans-serif" }}
                 >
-                  {isVerified ? "CHECKOUT (VERIFIED)" : "CHECKOUT"}
+                  {isVerified ? "CHECKOUT" : "CHECKOUT"}
                 </Button>
               </div>
             )}

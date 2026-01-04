@@ -54,7 +54,7 @@ export function SearchResultsPage() {
   }, [location]);
 
   return (
-    <div className="w-full bg-brand-black min-h-screen pt-16 md:pt-[120px]">
+    <div className="w-full bg-brand-black min-h-screen pt-8 md:pt-20">
       {/* Search Result Header - Schematic Style */}
       <div className="max-w-[1440px] mx-auto px-8 pb-8 md:pb-20 border-b border-brand-light/5">
         <div className="flex flex-col items-center text-center">
