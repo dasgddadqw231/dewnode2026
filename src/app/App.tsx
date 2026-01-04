@@ -13,6 +13,7 @@ import { AdminOrders } from "./pages/admin/AdminOrders";
 import { AdminSales } from "./pages/admin/AdminSales";
 import { AdminHero } from "./pages/admin/AdminHero";
 import { AdminCollections } from "./pages/admin/AdminCollections";
+import { AdminSettings } from "./pages/admin/AdminSettings";
 import { AdminLogin } from "./pages/admin/AdminLogin";
 import { Toaster } from "sonner";
 import { useEffect } from "react";
@@ -55,6 +56,7 @@ function AdminRoutes() {
         <Route path="/admin/sales" component={AdminSales} />
         <Route path="/admin/hero" component={AdminHero} />
         <Route path="/admin/collections" component={AdminCollections} />
+        <Route path="/admin/settings" component={AdminSettings} />
       </Switch>
     </AdminLayout>
   );

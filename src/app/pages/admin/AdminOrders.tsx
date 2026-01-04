@@ -10,6 +10,44 @@ import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/pop
 import { format, subDays, startOfMonth, endOfMonth, startOfToday } from "date-fns";
 import { cn } from "../../../lib/utils";
 
+const EditableInput = ({
+    value,
+    placeholder,
+    onSave,
+    className
+}: {
+    value: string,
+    placeholder: string,
+    onSave: (val: string) => void,
+    className?: string
+}) => {
+    const [localValue, setLocalValue] = useState(value);
+
+    // Update local value if prop changes (e.g. from DB refresh)
+    useEffect(() => {
+        setLocalValue(value);
+    }, [value]);
+
+    return (
+        <Input
+            value={localValue}
+            onChange={(e) => setLocalValue(e.target.value)}
+            onBlur={() => {
+                if (localValue !== value) {
+                    onSave(localValue);
+                }
+            }}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    e.currentTarget.blur();
+                }
+            }}
+            placeholder={placeholder}
+            className={className}
+        />
+    );
+};
+
 export function AdminOrders() {
     const [orders, setOrders] = useState<Order[]>([]);
 
@@ -67,6 +105,17 @@ export function AdminOrders() {
         } catch (error) {
             console.error("Failed to update tracking number", error);
             toast.error("Failed to update tracking number");
+        }
+    };
+
+    const updateDeliveryCompany = async (id: string, deliveryCompany: string) => {
+        try {
+            await dbService.orders.updateDeliveryCompany(id, deliveryCompany);
+            setOrders(prev => prev.map(o => o.id === id ? { ...o, deliveryCompany } : o));
+            toast.success("Delivery Company updated");
+        } catch (error) {
+            console.error("Failed to update delivery company", error);
+            toast.error("Failed to update delivery company");
         }
     };
 
@@ -266,7 +315,7 @@ export function AdminOrders() {
                                 <th className="p-4 md:p-6 font-medium text-brand-light/40">Items</th>
                                 <th className="p-4 md:p-6 font-medium text-brand-light/40">Total</th>
                                 <th className="p-4 md:p-6 font-medium text-brand-light/40">Status</th>
-                                <th className="p-4 md:p-6 font-medium text-brand-light/40">Tracking No</th>
+                                <th className="p-4 md:p-6 font-medium text-brand-light/40">Tracking / Carrier</th>
                                 <th className="p-4 md:p-6 font-medium text-brand-light/40 text-right">Actions</th>
                             </tr>
                         </thead>
@@ -303,21 +352,20 @@ export function AdminOrders() {
                                             </span>
                                         </td>
                                         <td className="p-4 md:p-6">
-                                            <Input
-                                                defaultValue={order.trackingNumber || ''}
-                                                placeholder="TRACKING NO"
-                                                className="h-8 text-[10px] bg-brand-black border-brand-gray tracking-wider w-32 rounded-none focus:border-brand-cyan"
-                                                onBlur={(e) => {
-                                                    if (e.target.value !== (order.trackingNumber || '')) {
-                                                        updateTrackingNumber(order.id, e.target.value);
-                                                    }
-                                                }}
-                                                onKeyDown={(e) => {
-                                                    if (e.key === 'Enter') {
-                                                        e.currentTarget.blur();
-                                                    }
-                                                }}
-                                            />
+                                            <div className="flex flex-col gap-2">
+                                                <EditableInput
+                                                    value={order.trackingNumber || ''}
+                                                    placeholder="TRACKING NO"
+                                                    className="h-8 text-[10px] bg-brand-black border-brand-gray tracking-wider w-36 rounded-none focus:border-brand-cyan placeholder:text-[9px]"
+                                                    onSave={(val) => updateTrackingNumber(order.id, val)}
+                                                />
+                                                <EditableInput
+                                                    value={order.deliveryCompany || ''}
+                                                    placeholder="DELIVERY COMPANY"
+                                                    className="h-8 text-[10px] bg-brand-black border-brand-gray tracking-wider w-36 rounded-none focus:border-brand-cyan placeholder:text-[8px]"
+                                                    onSave={(val) => updateDeliveryCompany(order.id, val)}
+                                                />
+                                            </div>
                                         </td>
                                         <td className="p-4 md:p-6 text-right">
                                             <select

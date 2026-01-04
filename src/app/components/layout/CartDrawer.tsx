@@ -127,6 +127,11 @@ export function CartDrawer() {
       return;
     }
 
+    if (!isVerified) {
+      toast.error("PLEASE VERIFY YOUR EMAIL");
+      return;
+    }
+
     try {
       // Create order
       await dbService.orders.create({
@@ -343,9 +348,8 @@ export function CartDrawer() {
 
                   <div className="bg-brand-gray/10 border border-brand-gray p-6 mt-8 text-[11px] text-brand-light/60 space-y-3 uppercase tracking-widest leading-relaxed">
                     <p className="font-bold text-brand-cyan">Bank Transfer Info</p>
-                    <p>Bank: WOORI BANK</p>
-                    <p>Account: 1002-000-000000</p>
-                    <p>Holder: DEW&ODE</p>
+                    {/* Using hardcoded fallback if not yet loaded or fetch failed, but ideally should rely on dbService */}
+                    <BankInfoDisplay />
                   </div>
 
                   <div className="pt-6 space-y-4">
@@ -417,5 +421,35 @@ export function CartDrawer() {
         </>
       )}
     </AnimatePresence>
+  );
+}
+
+function BankInfoDisplay() {
+  const [bankInfo, setBankInfo] = useState<{ bank: string, account: string, holder: string } | null>(null);
+
+  useEffect(() => {
+    dbService.settings.get().then(settings => {
+      if (settings && settings.bank_info) {
+        setBankInfo(settings.bank_info);
+      }
+    });
+  }, []);
+
+  if (!bankInfo) {
+    return (
+      <>
+        <p>Bank: WOORI BANK</p>
+        <p>Account: 1002-000-000000</p>
+        <p>Holder: DEW&ODE</p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <p>Bank: {bankInfo.bank}</p>
+      <p>Account: {bankInfo.account}</p>
+      <p>Holder: {bankInfo.holder}</p>
+    </>
   );
 }

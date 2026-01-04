@@ -10,6 +10,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
     { href: "/admin/products", label: "Product Management" },
     { href: "/admin/orders", label: "Order Management" },
     { href: "/admin/sales", label: "Sales Analytics" },
+    { href: "/admin/settings", label: "Settings" },
     { href: "/admin/hero", label: "Hero Image" },
     { href: "/admin/collections", label: "Collection Image" },
   ];

@@ -36,6 +36,7 @@ export interface Order {
   customerAddress: string;
   customerPhone: string;
   trackingNumber?: string;
+  deliveryCompany?: string;
 }
 
 export interface Collection {
@@ -50,6 +51,20 @@ export interface HeroImage {
   image: string;
   title?: string;
   order: number;
+}
+
+export interface Settings {
+  id: string;
+  admin_auth: {
+    id: string;
+    password?: string; // Optional for compatibility, but intended to be used
+    description?: string; // e.g. "Primary Admin"
+  };
+  bank_info: {
+    bank: string;
+    account: string;
+    holder: string;
+  };
 }
 
 // Initial Data
@@ -209,6 +224,19 @@ const INITIAL_HERO_IMAGES: HeroImage[] = [
   }
 ];
 
+const INITIAL_SETTINGS: Settings = {
+  id: 'global_settings',
+  admin_auth: {
+    id: 'duk3124',
+    password: 'zxcqwe122..',
+  },
+  bank_info: {
+    bank: 'WOORI BANK',
+    account: '1002-000-000000',
+    holder: 'DEW&ODE',
+  }
+};
+
 const INITIAL_COLLECTIONS: Collection[] = [];
 
 const INITIAL_ORDERS: Order[] = [
@@ -285,7 +313,8 @@ const STORAGE: Record<string, any> = {
   products: INITIAL_PRODUCTS,
   orders: INITIAL_ORDERS,
   collections: INITIAL_COLLECTIONS,
-  hero: INITIAL_HERO_IMAGES
+  hero: INITIAL_HERO_IMAGES,
+  settings: INITIAL_SETTINGS
 };
 
 // DB Interface
@@ -346,6 +375,13 @@ export const db = {
     },
     delete: (id: string) => {
       STORAGE.hero = STORAGE.hero.filter((i: HeroImage) => i.id !== id);
+    }
+  },
+  settings: {
+    get: () => STORAGE.settings as Settings,
+    update: (updates: Partial<Settings>) => {
+      STORAGE.settings = { ...STORAGE.settings, ...updates };
+      return STORAGE.settings;
     }
   }
 };

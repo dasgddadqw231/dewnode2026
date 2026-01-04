@@ -74,8 +74,8 @@ export function OrderHistoryPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-8 py-24 min-h-[70vh] bg-brand-black">
-      <h1 className="text-xl font-light tracking-[0.4em] text-center mb-16 uppercase text-brand-light">ORDER HISTORY</h1>
+    <div className="max-w-2xl mx-auto px-4 md:px-8 py-12 md:py-24 min-h-[70vh] bg-brand-black">
+      <h1 className="text-lg md:text-xl font-light tracking-[0.4em] text-center mb-8 md:mb-16 uppercase text-brand-light">ORDER HISTORY</h1>
 
       {!searched ? (
         <div className="space-y-10 max-w-sm mx-auto">
@@ -132,15 +132,12 @@ export function OrderHistoryPage() {
         <div className="space-y-16">
           <div className="flex justify-between items-center pb-6 border-b border-brand-gray">
             <span className="text-[11px] uppercase tracking-widest text-brand-light/40">Orders for {email}</span>
-            <button onClick={() => setSearched(false)} className="text-[10px] uppercase tracking-widest underline text-brand-cyan hover:text-brand-light transition-colors cursor-pointer">
-              Search Again
-            </button>
           </div>
 
           {orders && orders.length > 0 ? (
             orders.map((order) => (
-              <div key={order.id} className="border border-brand-gray p-8 space-y-8 bg-brand-gray/5">
-                <div className="flex justify-between items-start">
+              <div key={order.id} className="border border-brand-gray p-4 md:p-8 space-y-6 md:space-y-8 bg-brand-gray/5">
+                <div className="flex justify-between items-start gap-4">
                   <div className="space-y-1">
                     <p className="text-[10px] text-brand-light/40 uppercase tracking-widest">Order ID: {order.id}</p>
                     <p className="text-[10px] text-brand-light/40 uppercase tracking-widest">{new Date(order.createdAt).toLocaleDateString()}</p>
@@ -149,28 +146,38 @@ export function OrderHistoryPage() {
                       <p className="text-[10px] text-brand-light/60 uppercase tracking-widest">{order.customerPhone}</p>
                     </div>
                   </div>
-                  <div className="flex flex-col items-end gap-1.5">
-                    <span className="px-4 py-1.5 border border-brand-cyan text-brand-cyan text-[9px] font-bold uppercase tracking-[0.2em]">
-                      {order.status === 'PENDING' ? '입금 확인 중' :
-                        order.status === 'PAID' ? '상품 준비 중' :
-                          order.status === 'SHIPPED' ? '배송 중' :
-                            order.status === 'COMPLETED' ? '배송 완료' :
-                              order.status === 'TvCancelled' ? '취소' :
+                  <div className="flex flex-col items-end gap-2 flex-shrink-0">
+                    <span className="px-2 py-0.5 md:px-3 md:py-1 border border-brand-cyan text-brand-cyan text-[8px] md:text-[9px] font-bold uppercase tracking-[0.2em]">
+                      {order.status === 'PENDING' ? 'PAYMENT PENDING' :
+                        order.status === 'PAID' ? 'PROCESSING' :
+                          order.status === 'SHIPPED' ? 'SHIPPED' :
+                            order.status === 'COMPLETED' ? 'DELIVERED' :
+                              order.status === 'TvCancelled' ? 'CANCELLED' :
                                 order.status}
                     </span>
-                    {order.trackingNumber && (
-                      <p className="text-[10px] text-brand-cyan tracking-widest mt-2 uppercase">
-                        TRACKING CODE: {order.trackingNumber}
+                    <div className="flex flex-col items-end gap-0.5">
+                      <p className="text-[10px] text-brand-light/60 tracking-widest uppercase text-right">
+                        {order.deliveryCompany && order.deliveryCompany}
+                        {order.deliveryCompany && order.trackingNumber && <span className="mx-1">/</span>}
+                        {order.trackingNumber && <span>{order.trackingNumber}</span>}
                       </p>
-                    )}
+                    </div>
                   </div>
                 </div>
 
                 <div className="space-y-6">
                   {order.items.map((item, idx) => (
                     <div key={idx} className="flex gap-6">
-                      <div className="w-20 h-24 flex-shrink-0">
-                        <WireframePlaceholder label="PRODUCT" />
+                      <div className="w-20 h-24 flex-shrink-0 bg-brand-gray/5 border border-brand-gray relative overflow-hidden">
+                        {item.productImage ? (
+                          <img
+                            src={item.productImage}
+                            alt={item.productName}
+                            className="w-full h-full object-cover grayscale opacity-80"
+                          />
+                        ) : (
+                          <WireframePlaceholder label="NO IMAGE" />
+                        )}
                       </div>
                       <div className="flex-1 space-y-1">
                         <p className="text-[12px] font-medium uppercase tracking-widest text-brand-light">{item.productName}</p>
@@ -181,13 +188,17 @@ export function OrderHistoryPage() {
                   ))}
                 </div>
 
-                <div className="pt-6 border-t border-brand-gray flex justify-between items-center">
-                  <div className="flex gap-4 items-center">
+                <div className="pt-6 border-t border-brand-gray flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0">
+                  <div className="flex gap-4 items-center w-full md:w-auto justify-between md:justify-start">
                     <span className="text-[11px] uppercase tracking-widest text-brand-light/40">Total</span>
+                    <span className="text-base font-medium tracking-widest text-brand-cyan md:hidden">{order.totalAmount.toLocaleString()} KRW</span>
+                  </div>
+
+                  <div className="flex justify-between items-center w-full md:w-auto">
                     {(order.status === 'PENDING' || order.status === 'PAID') && (
                       <button
                         onClick={async () => {
-                          if (window.confirm('정말로 주문을 취소하시겠습니까?')) {
+                          if (window.confirm('Are you sure you want to cancel this order?')) {
                             try {
                               await dbService.orders.updateStatus(order.id, 'TvCancelled');
                               // 새로고침을 위해 상태 업데이트
@@ -199,13 +210,14 @@ export function OrderHistoryPage() {
                             }
                           }
                         }}
-                        className="ml-4 text-[9px] text-brand-light/20 hover:text-brand-cyan transition-colors uppercase tracking-[0.2em] underline underline-offset-4 cursor-pointer"
+                        className="text-[9px] text-brand-light/20 hover:text-brand-cyan transition-colors uppercase tracking-[0.2em] underline underline-offset-4 cursor-pointer"
                       >
-                        취소 요청
+                        CANCEL ORDER
                       </button>
                     )}
+
+                    <span className="text-base font-medium tracking-widest text-brand-cyan hidden md:block ml-8">{order.totalAmount.toLocaleString()} KRW</span>
                   </div>
-                  <span className="text-base font-medium tracking-widest text-brand-cyan">{order.totalAmount.toLocaleString()} KRW</span>
                 </div>
               </div>
             ))

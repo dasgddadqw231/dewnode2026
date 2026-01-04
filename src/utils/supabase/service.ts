@@ -1,9 +1,9 @@
 
 import { supabase } from '../../../utils/supabase/client';
-import { Product, Order, OrderItem, Collection, HeroImage } from '../../app/utils/mockDb';
+import { Product, Order, OrderItem, Collection, HeroImage, Settings, db } from '../../app/utils/mockDb';
 
 // Re-export types for convenience
-export type { Product, Order, OrderItem, Collection, HeroImage };
+export type { Product, Order, OrderItem, Collection, HeroImage, Settings };
 
 export const dbService = {
     products: {
@@ -126,6 +126,7 @@ export const dbService = {
                 customerAddress: o.customer_address,
                 customerPhone: o.customer_phone,
                 trackingNumber: o.tracking_number,
+                deliveryCompany: o["DELIVERY COMPANY"],
                 createdAt: o.created_at,
                 items: o.order_items.map((i: any) => ({
                     productId: i.product_id,
@@ -158,6 +159,7 @@ export const dbService = {
                 customerAddress: o.customer_address,
                 customerPhone: o.customer_phone,
                 trackingNumber: o.tracking_number,
+                deliveryCompany: o["DELIVERY COMPANY"],
                 createdAt: o.created_at,
                 items: o.order_items.map((i: any) => ({
                     productId: i.product_id,
@@ -207,6 +209,11 @@ export const dbService = {
 
         updateTracking: async (id: string, trackingNumber: string) => {
             const { error } = await supabase.from('orders').update({ tracking_number: trackingNumber }).eq('id', id);
+            if (error) throw error;
+        },
+
+        updateDeliveryCompany: async (id: string, deliveryCompany: string) => {
+            const { error } = await supabase.from('orders').update({ "DELIVERY COMPANY": deliveryCompany }).eq('id', id);
             if (error) throw error;
         }
     },
@@ -268,6 +275,57 @@ export const dbService = {
         delete: async (id: string) => {
             const { error } = await supabase.from('hero_images').delete().eq('id', id);
             if (error) throw error;
+        }
+    },
+
+    settings: {
+        get: async (): Promise<Settings> => {
+            // Check if settings table exists, if not use mock
+            try {
+                const { data, error } = await supabase.from('settings').select('*').single();
+                if (error) {
+                    console.warn("Using mock settings (DB error or not found)", error);
+                    return db.settings.get();
+                }
+                return data as Settings;
+            } catch (e) {
+                return db.settings.get();
+            }
+        },
+
+        update: async (updates: Partial<Settings>) => {
+            // Try to update DB, if fails fallback to mock
+            try {
+                // First get current settings to merge
+                const { data: currentSettings } = await supabase.from('settings').select('*').single();
+
+                // Prepare new settings object
+                const newSettings = {
+                    ...(currentSettings || db.settings.get()), // Use DB or Mock as base
+                    ...updates,
+                    id: 'global_settings', // Ensure ID is set
+                    // Merge nested objects effectively if needed, but simplified here:
+                    admin_auth: {
+                        ...(currentSettings?.admin_auth || db.settings.get().admin_auth),
+                        ...(updates.admin_auth || {})
+                    },
+                    bank_info: {
+                        ...(currentSettings?.bank_info || db.settings.get().bank_info),
+                        ...(updates.bank_info || {})
+                    }
+                };
+
+                const { error } = await supabase.from('settings').upsert(newSettings);
+
+                if (error) {
+                    console.error("Supabase settings update failed:", error);
+                    // Do NOT fallback to mock for writes, let the user know it failed
+                    throw error;
+                }
+            } catch (e) {
+                console.error("Settings update exception:", e);
+                throw e;
+            }
         }
     }
 };
