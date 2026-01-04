@@ -332,7 +332,7 @@ export function CartDrawer() {
                       />
                     </div>
 
-                    <div className="pt-4 border-t border-brand-gray/30 flex justify-between items-end">
+                    <div className="mt-8 py-6 border-y border-brand-gray/30 flex justify-between items-end">
                       <div className="flex flex-col gap-1">
                         <span className="text-[10px] text-brand-light/40 tracking-[0.2em] uppercase">Total Order Amount</span>
                         <span className="text-[9px] text-brand-light/30 tracking-[0.1em] uppercase">Free Shipping on All Orders</span>

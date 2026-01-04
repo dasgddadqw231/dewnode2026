@@ -24,7 +24,7 @@ export function ShopPage() {
 
   return (
     <div className="w-full bg-brand-black min-h-screen">
-      <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-14 md:pt-32 pb-40">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-8 md:pt-20 pb-40">
         <div className="mb-8 md:mb-20 flex flex-col items-start opacity-90">
           <h1 className="text-[16px] md:text-[20px] font-light tracking-[1em] text-brand-light uppercase">
             PRODUCTS
