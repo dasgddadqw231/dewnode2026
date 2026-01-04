@@ -188,13 +188,15 @@ export function OrderHistoryPage() {
                   ))}
                 </div>
 
-                <div className="pt-6 border-t border-brand-gray flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0">
+                <div className="pt-6 border-t border-brand-gray flex flex-col md:flex-row justify-between items-start md:items-start gap-4 md:gap-0">
                   <div className="flex gap-4 items-center w-full md:w-auto justify-between md:justify-start">
-                    <span className="text-[11px] uppercase tracking-widest text-brand-light/40">Total</span>
+                    <span className="text-[11px] uppercase tracking-widest text-brand-light/40 md:pt-1">Total</span>
                     <span className="text-base font-medium tracking-widest text-brand-cyan md:hidden">{order.totalAmount.toLocaleString()} KRW</span>
                   </div>
 
-                  <div className="flex justify-between items-center w-full md:w-auto">
+                  <div className="flex justify-between items-center w-full md:w-auto md:flex-col md:items-end md:gap-2">
+                    <span className="text-base font-medium tracking-widest text-brand-cyan hidden md:block">{order.totalAmount.toLocaleString()} KRW</span>
+
                     {(order.status === 'PENDING' || order.status === 'PAID') && (
                       <button
                         onClick={async () => {
@@ -215,8 +217,6 @@ export function OrderHistoryPage() {
                         CANCEL ORDER
                       </button>
                     )}
-
-                    <span className="text-base font-medium tracking-widest text-brand-cyan hidden md:block ml-8">{order.totalAmount.toLocaleString()} KRW</span>
                   </div>
                 </div>
               </div>
